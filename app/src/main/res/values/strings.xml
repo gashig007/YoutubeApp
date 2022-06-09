@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">YoutubeApp</string>
+    <string name="try_again">Try again</string>
+    <string name="playlist">playlist</string>
+    <string name="title_example">Emotional Well-being Healing Practices for Children</string>
+    <string name="playlist_extra_info_example">32 video series</string>
+</resources>
