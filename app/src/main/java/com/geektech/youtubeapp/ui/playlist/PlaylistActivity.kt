@@ -13,6 +13,10 @@ import com.geektech.youtubeapp.model.Item
 
 class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel>() {
 
+    companion object {
+        const val KEY = "key"
+    }
+
     override val viewModel: PlaylistViewModel by lazy {
         ViewModelProvider(this)[PlaylistViewModel::class.java]
     }
@@ -36,17 +40,18 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel
     }
 
     private fun initRecyclerView(item: List<Item>) {
-        binding.recycler.adapter = PlaylistAdapter(item, object:PlaylistAdapter.OnItemClickListener{
-            override fun onItemClick(id: String) {
-                Intent(this@PlaylistActivity, PlaylistDetailActivity::class.java)
-                intent.putExtra("Username","John Doe")
-                startActivity(intent)
-            }
+        binding.recycler.adapter = PlaylistAdapter(item, this::onItemClick)
 
-        })
     }
 
     override fun checkInternet() {
+
+    }
+
+    private fun onItemClick(channelId: String){
+        val intent = Intent(this, PlaylistDetailActivity::class.java)
+        intent.putExtra(KEY,channelId)
+        startActivity(intent)
 
     }
 }

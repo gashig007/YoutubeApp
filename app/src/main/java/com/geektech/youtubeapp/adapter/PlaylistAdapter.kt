@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.geektech.youtubeapp.databinding.ItemPlaylistBinding
 import com.geektech.youtubeapp.model.Item
 
-class PlaylistAdapter (var info: List<Item>,private var listener:OnItemClickListener)
+class PlaylistAdapter (var info: List<Item>, private val onItemClick: (itemsId: String) -> Unit?)
     : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>() {
     lateinit var binding: ItemPlaylistBinding
 
@@ -34,12 +34,8 @@ class PlaylistAdapter (var info: List<Item>,private var listener:OnItemClickList
             binding.playlistNameTv.text = item.snippet.title
             binding.playlistCountTv.text = item.contentDetails.itemCount.toString() + "video series"
             itemView.setOnClickListener{
-                listener.onItemClick(item.id)
+                onItemClick(item.id)
             }
         }
-    }
-
-    interface OnItemClickListener{
-        fun onItemClick(id : String)
     }
 }
