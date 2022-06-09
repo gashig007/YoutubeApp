@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.playlist.PlaylistActivity">
 
+    <include
+        android:id="@+id/network_layout"
+        android:visibility="gone"
+        layout="@layout/error_internet"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"

@@ -18,7 +18,6 @@ class PlaylistViewModel : BaseViewModel() {
     }
 
     fun getPlaylist(): LiveData<Playlists> {
-
         return playlist()
     }
 
