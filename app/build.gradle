@@ -13,7 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField "String", "BASE_URL", "\"https://www.googleapis.com/youtube/v3\""
+        buildConfigField "String", "BASE_URL", "\"https://www.googleapis.com/youtube/v3/\""
         buildConfigField "String", "BASE_API", "\"AIzaSyBEOaT5DHK4N31qEejr7fxdyGJcMuJc-Io\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
