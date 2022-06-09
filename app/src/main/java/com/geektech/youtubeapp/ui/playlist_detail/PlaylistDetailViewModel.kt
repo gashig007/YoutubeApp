@@ -1,4 +1,4 @@
-package com.geektech.youtubeapp.ui.playlist
+package com.geektech.youtubeapp.ui.playlist_detail
 
 import com.geektech.youtubeapp.base.BaseViewModel
 

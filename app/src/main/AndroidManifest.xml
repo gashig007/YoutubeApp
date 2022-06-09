@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YoutubeApp">
         <activity
-            android:name=".ui.playlist.PlaylistDetailActivity"
+            android:name=".ui.playlist_detail.PlaylistDetailActivity"
             android:exported="false" />
         <activity
             android:name=".ui.playlist.PlaylistActivity"

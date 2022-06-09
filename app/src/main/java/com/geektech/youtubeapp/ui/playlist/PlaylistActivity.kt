@@ -8,13 +8,13 @@ import android.net.NetworkCapabilities
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Adapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.geektech.youtubeapp.adapter.PlaylistAdapter
 import com.geektech.youtubeapp.base.BaseActivity
 import com.geektech.youtubeapp.databinding.ActivityPlaylistBinding
 import com.geektech.youtubeapp.model.Item
+import com.geektech.youtubeapp.ui.playlist_detail.PlaylistDetailActivity
 
 class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel>() {
 

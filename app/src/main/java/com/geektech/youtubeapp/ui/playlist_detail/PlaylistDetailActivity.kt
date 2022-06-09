@@ -1,13 +1,11 @@
-package com.geektech.youtubeapp.ui.playlist
+package com.geektech.youtubeapp.ui.playlist_detail
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.geektech.youtubeapp.R
 import com.geektech.youtubeapp.base.BaseActivity
 import com.geektech.youtubeapp.databinding.ActivityPlaylistDetailBinding
+import com.geektech.youtubeapp.ui.playlist.PlaylistActivity
 
 class PlaylistDetailActivity : BaseActivity<ActivityPlaylistDetailBinding, PlaylistDetailViewModel>() {
 
