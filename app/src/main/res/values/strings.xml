@@ -4,4 +4,11 @@
     <string name="playlist">playlist</string>
     <string name="title_example">Emotional Well-being Healing Practices for Children</string>
     <string name="playlist_extra_info_example">32 video series</string>
+    <string name="video_resource">video series</string>
+    <string name="back">Back</string>
+    <string name="playlist_toolbar">Playlist</string>
+    <string name="time">05:13</string>
+    <string name="video_title_example">HOW DISPLACEMENT INSTABILITY UNCERTAINTY AFFECT CHILDREN</string>
+    <string name="text">text</string>
+    <string name="text_detail">In this series, we break down the impact of displacement, instability, violence, and trauma in children, and offer exercises to support children in their healing journey.</string>
 </resources>

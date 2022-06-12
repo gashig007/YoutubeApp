@@ -1,104 +1,91 @@
 package com.geektech.youtubeapp.ui.playlist
 
-
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import com.geektech.youtubeapp.adapter.PlaylistAdapter
-import com.geektech.youtubeapp.base.BaseActivity
+import com.geektech.youtubeapp.core.network.result.Status
+import com.geektech.youtubeapp.core.ui.BaseActivity
+import com.geektech.youtubeapp.data.remote.model.Item
 import com.geektech.youtubeapp.databinding.ActivityPlaylistBinding
-import com.geektech.youtubeapp.model.Item
 import com.geektech.youtubeapp.ui.playlist_detail.PlaylistDetailActivity
+import com.geektech.youtubeapp.utils.NetworkStatus
+import com.geektech.youtubeapp.utils.NetworkStatusHelper
 
 class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel>() {
-
-    companion object {
-        const val KEY = "key"
-    }
 
     override val viewModel: PlaylistViewModel by lazy {
         ViewModelProvider(this)[PlaylistViewModel::class.java]
     }
 
-    override fun inflateViewBinding(inflater: LayoutInflater): ActivityPlaylistBinding {
-        return ActivityPlaylistBinding.inflate(inflater)
-    }
-
-    override fun initView() {
-    }
-
-    override fun initListener() {
-
-    }
-
     override fun initViewModel() {
-        viewModel.getPlaylist().observe(this) {
-            Toast.makeText(this, it.kind, Toast.LENGTH_SHORT).show()
-            initRecyclerView(it.items)
+
+        viewModel.loading.observe(this) {
+            binding.progressBar.isVisible = it
+        }
+
+        initVM()
+    }
+
+    private fun initRecyclerView(playlistsList: List<Item>) {
+        binding.recycler.adapter = PlaylistAdapter(playlistsList, this::onItemClick)
+    }
+
+    private fun onItemClick(channelId: String) {
+        Intent(this, PlaylistDetailActivity::class.java).apply {
+            putExtra(idPaPda, channelId)
+            startActivity(this)
         }
     }
 
-    private fun initRecyclerView(item: List<Item>) {
-        binding.recycler.adapter = PlaylistAdapter(item, this::onItemClick)
-
-    }
-
-    override fun checkInternet() {
-        checkConnection()
-        binding.networkLayout.btnTryAgain.setOnClickListener{
-            checkConnection()
-        }
-    }
-
-    private fun onItemClick(channelId: String){
-        val intent = Intent(this, PlaylistDetailActivity::class.java)
-        intent.putExtra(KEY,channelId)
-        startActivity(intent)
-
-    }
-
-    fun initVM() {
-        viewModel.getPlaylist().observe(this) {
-            Toast.makeText(this, it.kind, Toast.LENGTH_SHORT).show()
-            initRecyclerView(it.items)
+    private fun initVM() {
+        viewModel.getPlaylists().observe(this) {
+            when(it.status) {
+                Status.SUCCESS -> {
+                    if (it.data != null) {
+                        viewModel.loading.postValue(false)
+                        initRecyclerView(it.data.items)
+                    }
+                }
+                Status.ERROR -> {
+                    viewModel.loading.postValue(false)
+                    Toast.makeText(this, it.msg, Toast.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> {
+                    viewModel.loading.postValue(true)
+                }
+            }
         }
     }
 
     private fun checkConnection() {
-        if (isOnline(this)){
-            binding.recycler.visibility = View.VISIBLE
-            binding.networkLayout.root.visibility = View.GONE
-            initVM()
-        } else {
-            binding.recycler.visibility = View.GONE
-            binding.networkLayout.root.visibility = View.VISIBLE
-        }
-    }
-
-    private fun isOnline(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        if (capabilities != null) {
-            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
-                return true
-            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
-                return true
-            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
-                return true
+        NetworkStatusHelper(this).observe(this) {
+            if (it == NetworkStatus.Available) {
+                binding.recycler.visibility = View.VISIBLE
+                binding.networkLayout.root.visibility = View.GONE
+                initVM()
+            } else {
+                binding.recycler.visibility = View.GONE
+                binding.networkLayout.root.visibility = View.VISIBLE
             }
         }
-        return false
     }
 
+    companion object {
+        const val idPaPda = "idPaPda"
+    }
+
+    override fun checkInternet() {
+        checkConnection()
+
+        binding.networkLayout.btnTryAgain.setOnClickListener {
+            checkConnection()
+        }
+    }
+
+    override fun inflateViewBinding(inflater: LayoutInflater): ActivityPlaylistBinding {
+        return ActivityPlaylistBinding.inflate(inflater)
+    }
 }
