@@ -28,13 +28,14 @@ class PlaylistDetailActivity : BaseActivity<ActivityPlaylistDetailBinding, Playl
 
     override fun initView() {
         playlistId = intent.getStringExtra(PlaylistActivity.idPaPda).toString()
-        Toast.makeText(this, playlistId, Toast.LENGTH_SHORT).show()
+        binding.playlistTitle.text = intent.getStringExtra(PlaylistActivity.titlePaPda).toString()
+        binding.playlistDescription.text = intent.getStringExtra(PlaylistActivity.descriptionPaPda).toString()
     }
 
     override fun initListener() {
         super.initListener()
         binding.tvBack.setOnClickListener{
-            onItemClick()
+            onBackClick()
         }
     }
 
@@ -48,7 +49,7 @@ class PlaylistDetailActivity : BaseActivity<ActivityPlaylistDetailBinding, Playl
     }
 
     private fun initRecyclerView(playlistsList: List<Item>) {
-        binding.videosRecyclerView.adapter = PlaylistDetailAdapter(playlistsList)
+        binding.videosRecyclerView.adapter = PlaylistDetailAdapter(playlistsList, this::onItemClick)
     }
 
     private fun initVM() {
@@ -94,9 +95,20 @@ class PlaylistDetailActivity : BaseActivity<ActivityPlaylistDetailBinding, Playl
         }
     }
 
-    private fun onItemClick() {
+    private fun onItemClick(channelId: String) {
+        Intent(this, PlaylistDetailActivity::class.java).apply {
+            putExtra(idPaPda, channelId)
+            startActivity(this)
+        }
+    }
+
+    private fun onBackClick(){
         Intent(this, PlaylistActivity::class.java).apply {
             startActivity(this)
         }
+    }
+
+    companion object {
+        const val idPaPda = "idPaPda"
     }
 }

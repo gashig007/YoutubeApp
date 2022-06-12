@@ -8,7 +8,7 @@ import com.geektech.youtubeapp.R
 import com.geektech.youtubeapp.data.remote.model.Item
 import com.geektech.youtubeapp.databinding.ItemPlaylistBinding
 
-class PlaylistAdapter(private val list:List<Item>, private val onItemClick: (itemsId: String) -> Unit?): RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
+class PlaylistAdapter(private val list:List<Item>, private val onItemClick: (itemsId: String, String, String) -> Unit?): RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -32,7 +32,7 @@ class PlaylistAdapter(private val list:List<Item>, private val onItemClick: (ite
             binding.playlistCountTv.text =
                 String.format("${items.contentDetails.itemCount} ${itemView.context.getString(R.string.video_resource)}")
             itemView.setOnClickListener {
-                onItemClick(items.id)
+                onItemClick(items.id, items.snippet.title, items.snippet.description)
             }
         }
     }

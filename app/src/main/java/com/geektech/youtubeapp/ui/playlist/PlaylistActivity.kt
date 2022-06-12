@@ -21,7 +21,6 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel
     }
 
     override fun initViewModel() {
-
         viewModel.loading.observe(this) {
             binding.progressBar.isVisible = it
         }
@@ -33,9 +32,11 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel
         binding.recycler.adapter = PlaylistAdapter(playlistsList, this::onItemClick)
     }
 
-    private fun onItemClick(channelId: String) {
+    private fun onItemClick(channelId: String, title: String, description: String) {
         Intent(this, PlaylistDetailActivity::class.java).apply {
             putExtra(idPaPda, channelId)
+            putExtra(titlePaPda, title)
+            putExtra(descriptionPaPda, description)
             startActivity(this)
         }
     }
@@ -75,6 +76,8 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel
 
     companion object {
         const val idPaPda = "idPaPda"
+        const val titlePaPda = "titlePaPda"
+        const val descriptionPaPda = "descriptionPaPda"
     }
 
     override fun checkInternet() {
