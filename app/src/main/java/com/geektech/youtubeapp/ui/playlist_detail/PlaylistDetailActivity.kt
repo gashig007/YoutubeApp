@@ -11,6 +11,7 @@ import com.geektech.youtubeapp.core.ui.BaseActivity
 import com.geektech.youtubeapp.data.remote.model.Item
 import com.geektech.youtubeapp.databinding.ActivityPlaylistDetailBinding
 import com.geektech.youtubeapp.ui.playlist.PlaylistActivity
+import com.geektech.youtubeapp.ui.video.VideoActivity
 import com.geektech.youtubeapp.utils.NetworkStatus
 import com.geektech.youtubeapp.utils.NetworkStatusHelper
 
@@ -95,9 +96,11 @@ class PlaylistDetailActivity : BaseActivity<ActivityPlaylistDetailBinding, Playl
         }
     }
 
-    private fun onItemClick(channelId: String) {
-        Intent(this, PlaylistDetailActivity::class.java).apply {
-            putExtra(idPaPda, channelId)
+    private fun onItemClick(channelId: String, videoTitle: String, videoDesc: String) {
+        Intent(this, VideoActivity::class.java).apply {
+            putExtra(idPdaVa, channelId)
+            putExtra(titlePdaVa, videoTitle)
+            putExtra(descPdaVa, videoDesc)
             startActivity(this)
         }
     }
@@ -108,7 +111,9 @@ class PlaylistDetailActivity : BaseActivity<ActivityPlaylistDetailBinding, Playl
         }
     }
 
-    companion object {
-        const val idPaPda = "idPaPda"
-    }
+        companion object {
+            const val idPdaVa = "idPdaVa"
+            const val titlePdaVa = "titlePdaVa"
+            const val descPdaVa = "descPdaVa"
+        }
 }

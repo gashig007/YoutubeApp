@@ -9,6 +9,6 @@ import com.geektech.youtubeapp.core.network.result.Resource
 
 class PlaylistViewModel: BaseViewModel() {
     fun getPlaylists(): LiveData<Resource<Playlists>> {
-        return App().repository.getPlaylists()
+        return  App().repository.getPlaylists()
     }
 }

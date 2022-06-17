@@ -62,4 +62,7 @@ dependencies {
 // Interceptor
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
 
+    // ExoPLayer
+    implementation 'com.google.android.exoplayer:exoplayer:2.17.1'
+
 }
