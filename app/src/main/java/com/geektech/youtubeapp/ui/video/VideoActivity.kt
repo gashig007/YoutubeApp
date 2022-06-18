@@ -18,7 +18,6 @@ import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.PlayerView
 
 class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(), Player.Listener {
-
     private var videoId: String? = null
     private lateinit var player: ExoPlayer
     private lateinit var playerView: PlayerView
@@ -35,13 +34,12 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(), Play
     }
 
     override fun initView() {
-
         videoId = intent.getStringExtra(PlaylistDetailActivity.idPdaVa).toString()
         binding.videoTitle.text = intent.getStringExtra(PlaylistDetailActivity.titlePdaVa).toString()
         binding.videoDesc.text = intent.getStringExtra(PlaylistDetailActivity.descPdaVa).toString()
-
         binding.networkLayout.root.visibility = View.GONE
         binding.progressBar.visibility = View.GONE
+
         setupPlayer()
         addMp4Files()
         addMp3Files()
@@ -86,7 +84,6 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(), Play
             }
             Player.STATE_READY -> {
                 binding.videoProgressBar.visibility = View.INVISIBLE
-
             }
         }
     }
