@@ -51,10 +51,6 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(), Play
         viewModel.loading.observe(this) {
             binding.progressBar.isVisible = it
         }
-        initVM()
-    }
-
-    private fun initVM() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -113,7 +109,6 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(), Play
             if (it == NetworkStatus.Available) {
                 binding.main.visibility = View.VISIBLE
                 binding.networkLayout.root.visibility = View.GONE
-                initVM()
             } else {
                 binding.main.visibility = View.GONE
                 binding.networkLayout.root.visibility = View.VISIBLE
