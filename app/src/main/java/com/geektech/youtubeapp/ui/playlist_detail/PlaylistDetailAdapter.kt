@@ -45,7 +45,7 @@ class PlaylistDetailAdapter(private val list:List<Item>, private val onItemClick
             }
             binding.timeTv.text = items.snippet.publishedAt.dropLast(10)
             itemView.setOnClickListener {
-                onItemClick(items.id, items.snippet.title, items.snippet.description)
+                onItemClick(items.snippet.resourceId.videoId, items.snippet.title, items.snippet.description)
             }
         }
     }

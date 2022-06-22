@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import com.geektech.youtubeapp.core.network.result.Status
 import com.geektech.youtubeapp.core.ui.BaseActivity
 import com.geektech.youtubeapp.data.remote.model.Item
@@ -13,17 +12,17 @@ import com.geektech.youtubeapp.databinding.ActivityPlaylistBinding
 import com.geektech.youtubeapp.ui.playlist_detail.PlaylistDetailActivity
 import com.geektech.youtubeapp.utils.NetworkStatus
 import com.geektech.youtubeapp.utils.NetworkStatusHelper
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlaylistActivity : BaseActivity<ActivityPlaylistBinding, PlaylistViewModel>() {
 
-    override val viewModel: PlaylistViewModel by lazy {
-        ViewModelProvider(this)[PlaylistViewModel::class.java]
-    }
+    override val viewModel: PlaylistViewModel by viewModel()
 
     override fun initViewModel() {
         viewModel.loading.observe(this) {
             binding.progressBar.isVisible = it
         }
+        viewModel.setOnBoard(true)
 
         initVM()
     }

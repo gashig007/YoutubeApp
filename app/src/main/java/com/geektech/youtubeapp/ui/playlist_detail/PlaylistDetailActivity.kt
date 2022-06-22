@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import com.geektech.youtubeapp.core.network.result.Status
 import com.geektech.youtubeapp.core.ui.BaseActivity
 import com.geektech.youtubeapp.data.remote.model.Item
@@ -14,14 +13,13 @@ import com.geektech.youtubeapp.ui.playlist.PlaylistActivity
 import com.geektech.youtubeapp.ui.video.VideoActivity
 import com.geektech.youtubeapp.utils.NetworkStatus
 import com.geektech.youtubeapp.utils.NetworkStatusHelper
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlaylistDetailActivity : BaseActivity<ActivityPlaylistDetailBinding, PlaylistDetailViewModel>() {
 
     private var playlistId: String? = null
 
-    override val viewModel: PlaylistDetailViewModel by lazy {
-        ViewModelProvider(this)[PlaylistDetailViewModel::class.java]
-    }
+    override val viewModel: PlaylistDetailViewModel by viewModel()
 
     override fun inflateViewBinding(inflater: LayoutInflater): ActivityPlaylistDetailBinding {
         return ActivityPlaylistDetailBinding.inflate(inflater)
